@@ -24,18 +24,17 @@
   hosts: localhost
 
   tasks:
-#  - name: Download Bitcoin Core Executable
-#    ansible.builtin.get_url:
-#      url: https://bitcoincore.org/bin/bitcoin-core-24.0.1/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
-#      dest: /var/bitcoin/source
-#      mode: '0440'
-
-
-  - name: Create /var/bitcoin directory
+  - name: Create /var/bitcoin directory for variable files - bitcoin data directory
     ansible.builtin.file:
        path:  /var/bitcoin/
        state: directory
        mode: '0755'
+
+  - name: Create /var/bitcoin directory for binary files
+    ansible.builtin.file:
+       path:  /usr/local/btc/
+       state: directory
+       mode: '0755'       
        
   - name: Install the latest version of sudo
     ansible.builtin.dnf:
@@ -79,19 +78,13 @@
       groups: coin,wheel
       append: yes
 
-  - name: Create /var/bitcoin directory
-    ansible.builtin.file:
-       path:  /var/bitcoin/
-       state: directory
-       mode: '0755'
-
-  - name: Download and Unarchive Bitcoin Core
+  - name: Download and unarchive Bitcoin Core
     ansible.builtin.unarchive:
        src: https://bitcoincore.org/bin/bitcoin-core-24.0.1/bitcoin-24.0.1-x86_64-linux-gnu.tar.gz
-       dest: /var/bitcoin/
+       dest: /usr/local/
        remote_src: yes
 
-  - name: Download Bitcoin Core Executable
+  - name: Download Rust installation script
     ansible.builtin.get_url:
       url: https://sh.rustup.rs 
       dest: /tmp/rustup-init.sh
@@ -111,13 +104,13 @@
   - name: Clone Greg Ord
     ansible.builtin.git:
       repo: https://github.com/gmart7t2/ord.git
-      dest: /var/bitcoin/ordg
+      dest: /usr/local/btc/ordg
       version: master   
 
-  - name: Clone Casey Ord
+  - name: Clone Casey Ord 
     ansible.builtin.git:
       repo: https://github.com/casey/ord.git
-      dest: /var/bitcoin/ord
+      dest: /usr/local/btc/ord
       version: master    
       
   - name: Recursively change ownership of /var/bitcoin to token:coin
@@ -127,23 +120,31 @@
       recurse: yes
       owner: token
       group: coin 
+
+  - name: Recursively change ownership of /usr/local/btc to token:coin
+    ansible.builtin.file:
+      path: /usr/local/btc
+      state: directory
+      recurse: yes
+      owner: token
+      group: coin 
       
-  - name: compile Casey Ord
+  - name: compile Casey Ord - this takes some time
     become: true
     become_method: su
     become_user: token
     ansible.builtin.shell: 
        executable: /bin/bash
-       chdir: /var/bitcoin/ord
+       chdir: /usr/local/btc/ord
        cmd: source $HOME/.cargo/env |~/.cargo/bin/cargo build --release
        
-  - name: compile Greg Ord
+  - name: compile Greg Ord - this takes some time
     become: true
     become_method: su
     become_user: token
     ansible.builtin.shell: 
        executable: /bin/bash
-       chdir: /var/bitcoin/ordg
+       chdir: /usr/local/btc/ordg
        cmd: source $HOME/.cargo/env |~/.cargo/bin/cargo build --release
        
   - name: update user path
@@ -152,7 +153,7 @@
     become_user: token
     ansible.builtin.shell: 
        executable: /bin/bash
-       cmd: echo "export PATH=$PATH:/var/bitcoin/ordg/target/release:/var/bitcoin/ord/target/release" >> ~/.bash_profile
+       cmd: echo "export PATH=$PATH:/usr/local/btc/ordg/target/release:/usr/local/btc/ord/target/release" >> ~/.bash_profile
 
   - name: rename greg ord to ordg
     become: true
@@ -160,7 +161,7 @@
     become_user: token
     ansible.builtin.shell: 
       executable: /bin/bash
-      cmd: mv /var/bitcoin/ordg/target/release/ord /var/bitcoin/ordg/target/release/ordg
+      cmd: mv /usr/local/btc/ordg/target/release/ord /usr/local/btc/ordg/target/release/ordg
       
   #- name: Download Ordinal Index No Sats - Embedded RustDB
   #  ansible.builtin.get_url:
