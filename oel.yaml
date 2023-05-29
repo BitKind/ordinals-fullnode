@@ -54,7 +54,17 @@
   - name: Install the latest version of gcc
     ansible.builtin.dnf:
       name: gcc
-      state: latest      
+      state: latest 
+
+  - name: Install the latest version of curl
+    ansible.builtin.dnf:
+      name: curl
+      state: latest  
+
+  - name: Install the latest version of wget
+    ansible.builtin.dnf:
+      name: wget
+      state: latest             
       
   - name: Install the latest version of pip
     ansible.builtin.dnf:
@@ -65,6 +75,16 @@
     ansible.builtin.dnf:
       name: python39
       state: latest
+
+  - name: Install the latest version of epel-release
+    ansible.builtin.dnf:
+      name: epel-release
+      state: latest       
+
+  - name: Install the latest version of screen
+    ansible.builtin.dnf:
+      name: screen
+      state: latest            
 
   - name: Ensure group Coin group exists
     ansible.builtin.group:
