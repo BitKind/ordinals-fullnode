@@ -1,6 +1,6 @@
 # ordinals-fullnode
 Ansible Playbook for Ordinals Full Node Build - Linux and Ubuntu
-The images produced do not includ final /var/bitcoin/data directory setup
+The images produced do not include final /var/bitcoin/data directory setup
 
 The playboook installs Bitcoin, Rust, and compiles https://github.com/gmart7t2/ord.git https://github.com/casey/ord.git
 
