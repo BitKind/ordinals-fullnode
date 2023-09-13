@@ -30,7 +30,7 @@ docker exec ord python3 -m pip install ansible
 ```
 docker ps -a | grep ord | cut -d" " -f1   #windows with cygwin or ubuntu
 docker commit <containerid> ordinals:latest
-# run the ordinals image and attach to a volume, naming the volume /bitcoin
-docker run -idt --volume //<drive>/ordinals:/ordinals --volume //d/bitcoin:/bitcoin --name ord ordinals:latest
+# run the ordinals image with localhost access and attach to a volume, naming the volume /bitcoin
+docker run -idt --network="host" --volume //z/ordinals:/ordinals --volume //z/bitcoin:/bitcoin --name ord ordinals:latest
 ```
 <img width="856" alt="image" src="https://github.com/BitKind/ordinals-fullnode/assets/120213/5e5a0381-1c9f-4769-be89-4abb2eba444a">
