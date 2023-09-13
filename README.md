@@ -31,5 +31,5 @@ docker exec ord python3 -m pip install ansible
 docker ps -a | grep ord | cut -d" " -f1   #windows with cygwin or ubuntu
 docker commit <containerid> ordinals:latest
 # run the ordinals image and attach to a volume, naming the volume /bitcoin
-docker run -idt --volume --volume //d/bitcoin:/bitcoin --name ord ordinals:latest
+docker run -idt --volume //<drive>/ordinals:/ordinals --volume //d/bitcoin:/bitcoin --name ord ordinals:latest
 ```
