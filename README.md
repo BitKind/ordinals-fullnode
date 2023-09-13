@@ -37,6 +37,5 @@ sudo su - token
 # make sure Bitcoin full node is running
 # this example uses Bitcoin RPC installed natively on the host machine, not the installed docker Bitcoin
 ord --bitcoin-data-dir /bitcoin/data --data-dir /bitcoin/data --index /ordinals/08-index-sats.redb --index-sats --rpc-url host.docker.internal:8332/wallet/ord wallet inscriptions
-Index file "/ordinals/08-index-sats.redb"
 ```
 <img width="856" alt="image" src="https://github.com/BitKind/ordinals-fullnode/assets/120213/5e5a0381-1c9f-4769-be89-4abb2eba444a">
