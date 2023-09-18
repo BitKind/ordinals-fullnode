@@ -16,6 +16,13 @@ Example Archictures
 ```
 A) Full Windows Native Full Bitcoin Node - Docker Localhost --rpc-url
 Ubuntu Docker Instance - Native Ordg installed and complied
+Docker --volume launched with /bitcoin and /ordinal directories configured to connect direct from Ubuntu Ord compiled version
+This connects to Windows Native Bitcoin using Ubuntu native source-compiled Ord and Ordg
+
+B) Ubuntu Native Bitcoin and compiled Ord
+Docker launched with /bitcoin and /ordinal volumes
+No native services outside the docker instance, native windows volumes mounted within Docker.
+This is solid and removes the --rpc-url and docker host proxy, however screen or ssh should be used to Docker Attach otherwise Bitcoin needs to be launched as a job and attaching creates a single entry point with all stdout going to the active console. 
 
 # Ubuntu Setup from cmd line
 ```
