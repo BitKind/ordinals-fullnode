@@ -2,7 +2,7 @@
 Ansible Playbook for Ordinals Full Node Build - Linux and Ubuntu
 The images produced do not include final /var/bitcoin/data directory setup
 
-The playboook installs Bitcoin, Rust, and compiles https://github.com/gmart7t2/ord.git https://github.com/casey/ord.git
+The playboook installs Bitcoin, Rust, and compiles https://github.com/gmart7t2/ord.git and https://github.com/casey/ord.git
 
 
 Window has RPC URL issues at volume, this appears disk/rpc call timeout related, as example, Disk usage may go to 100% during index commit at 5000, take a very long time depending on disk speed and then blow out, requiring index rebuild or index recovery if using latest ord versions.
