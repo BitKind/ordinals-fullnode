@@ -22,7 +22,8 @@ This connects to Windows Native Bitcoin using Ubuntu native source-compiled Ord 
 B) Ubuntu Native Bitcoin and compiled Ord
 Docker launched with /bitcoin and /ordinal volumes
 No native services outside the docker instance, native windows volumes mounted within Docker.
-This is solid and removes the --rpc-url and docker host proxy, however screen or ssh should be used to Docker Attach otherwise Bitcoin needs to be launched as a job and attaching creates a single entry point with all stdout going to the active console. 
+This is solid and removes the --rpc-url and docker host proxy, however screen or ssh should be used to Docker Attach otherwise Bitcoin needs to be launched as a job and attaching creates a single entry point with all stdout going to the active console.
+```
 
 # Ubuntu Setup from cmd line
 ```
