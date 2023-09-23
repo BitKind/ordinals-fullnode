@@ -21,7 +21,12 @@
   - name: Install the latest version of sudo
     ansible.builtin.apt:
       name: sudo
-      state: latest       
+      state: latest     
+
+  - name: Install the latest version of cron
+    ansible.builtin.apt:
+      name: cron
+      state: latest  
        
   - name: Install the latest version of jq
     ansible.builtin.apt:
