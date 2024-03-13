@@ -42,6 +42,7 @@ docker exec ord ansible-playbook /tmp/ubuntu.yaml
 docker pull oraclelinux:8
 docker run -itd --name ord oraclelinux:8
 docker exec ord dnf install -y python3.9
+docker cp oel.yaml ord:/tmp/
 docker exec ord ansible-playbook /tmp/oel.yaml
 docker exec ord python3 -m pip install ansible
 ```
